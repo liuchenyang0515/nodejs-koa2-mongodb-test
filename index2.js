@@ -1,4 +1,3 @@
-const { truncateSync } = require('fs')
 const http = require('http')
 const querystring = require('querystring')
 
