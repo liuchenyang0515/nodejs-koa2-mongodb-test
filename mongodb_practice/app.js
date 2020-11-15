@@ -5,6 +5,7 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const session = require('koa-generic-session')
 
 const index = require('./routes/index')
 const users = require('./routes/users')
@@ -25,6 +26,19 @@ app.use(require('koa-static')(__dirname + '/public')) // 静态文件服务
 app.use(views(__dirname + '/views', {//服务端模版引擎，pug里面简写html格式，不用再写尖括号<>标签
   extension: 'pug'
 }))
+
+app.keys = ['er#@$%^we23t'] // 密钥
+// 自动配置了cookie和session
+app.use(session({
+  // 配置cookie
+  cookie: {
+    path: '/', // cookie在根目录和该根目录的子目录下有效 localhost:3000
+    httpOnly: true, // cookie只允许服务端操作
+    maxAge: 24 * 60 * 60 * 1000 // cookie的过期时间
+  }
+}))
+
+
 
 // logger  打印当前请求花费时间
 app.use(async (ctx, next) => {
