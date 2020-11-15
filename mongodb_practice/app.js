@@ -11,6 +11,7 @@ const index = require('./routes/index')
 const users = require('./routes/users')
 const comments = require('./routes/comments')
 
+const loginCheck = require('./middlewares/loginCheck')
 
 // error handler
 onerror(app)
@@ -59,7 +60,7 @@ app.use(async (ctx, next) => {
 //     ctx.body = '请登录'
 //   }
 // })
-
+// app.use(loginCheck) // 全部路由都要校验，仅供演示
 
 // routes 注册路由
 app.use(index.routes(), index.allowedMethods())

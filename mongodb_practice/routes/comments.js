@@ -1,9 +1,11 @@
 const router = require('koa-router')()
 const { Comment } = require('../db/model')
+const loginCheck = require('../middlewares/loginCheck')
+
 router.prefix('/api')
 
 // 定义路由：模拟获取留言板列表
-router.get('/list', async (ctx) => { // ctx就是req和res的集合
+router.get('/list', loginCheck, async (ctx) => { // ctx就是req和res的集合
     const query = ctx.query // req功能
     console.log('query', query); // http://localhost:3000/api/list?a=123&b=456
     // 获取数据库列表, 按最近时间在上排序
